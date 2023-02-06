@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseRegister {
-
-    private String contentId;
+public class ResponseUserDto {
+    private String loginId;
+    private String name;
+    private String email;
 
 }

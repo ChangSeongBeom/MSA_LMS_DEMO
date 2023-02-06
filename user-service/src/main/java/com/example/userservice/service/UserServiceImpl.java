@@ -3,16 +3,18 @@ package com.example.userservice.service;
 import com.example.userservice.domain.User;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.repository.UserRepository;
+import com.example.userservice.vo.RequestJoinUserDto;
+import com.example.userservice.vo.ResponseJoinUserDto;
+import com.example.userservice.vo.ResponseUserDto;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -22,26 +24,25 @@ public class UserServiceImpl implements UserService{
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public UserDto joinUser(UserDto userDto) {
-
+    public UserDto joinUser(RequestJoinUserDto requestJoinUserDto) {
         ModelMapper mapper=new ModelMapper();
-        //DTO-> Entity변환 , 비밀번호 암호화
-        User user=mapper.map(userDto,User.class);
-        //아이디는 차후에 암호화 할 필요있음.
-      //  user.setLoginId(UUID.randomUUID().toString());
-        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        //delpoy될 값의 id를 구현할떄 detach persist에러가 나오므로 널처리
-        user.setId(null);
-        //회원 정보 저장
+        //Dto->Entity전환
+        //아래 코드였지만 코드리팩토링을 위해 builder패턴으로 변경
+        // User user=mapper.map(requestJoinUserDto,User.class);
+        User user=User.builder().requestJoinUserDto(requestJoinUserDto).build();
+        user.setPassword(bCryptPasswordEncoder.encode(requestJoinUserDto.getPassword()));
 
+        //회원정보 저장
         userRepository.save(user);
 
-        //리턴 타입 변환
-        UserDto responseUserDto=mapper.map(user,UserDto.class);
-
-        return responseUserDto;
+        //저장결과 리턴을 위한 전환
+        UserDto userDto=mapper.map(user,UserDto.class);
+        return userDto;
     }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -62,11 +63,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDto getUser(String loginId) {
         //사용자 정보 하나 조회
-        User findUser=userRepository.findById(loginId);
+        User user=userRepository.findById(loginId);
+
+        ModelMapper mapper=new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         //entity->Dto로 변환
-        UserDto findUserDto=new ModelMapper().map(findUser,UserDto.class);
-        return findUserDto;
+        UserDto userDto=mapper.map(user,UserDto.class);
+        return userDto;
     }
 
     @Override
@@ -79,6 +83,22 @@ public class UserServiceImpl implements UserService{
         UserDto userDto=new ModelMapper().map(user,UserDto.class);
 
         return userDto;
+    }
+
+    @Override
+    public ResponseJoinUserDto responseJoinUser(UserDto userDto) {
+        ModelMapper mapper=new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        ResponseJoinUserDto responseJoinUserDto=mapper.map(userDto,ResponseJoinUserDto.class);
+        return responseJoinUserDto;
+    }
+
+    @Override
+    public ResponseUserDto findOneUser(UserDto userDto) {
+        ModelMapper mapper=new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        ResponseUserDto responseUser = mapper.map(userDto,ResponseUserDto.class);
+        return responseUser;
     }
 
 

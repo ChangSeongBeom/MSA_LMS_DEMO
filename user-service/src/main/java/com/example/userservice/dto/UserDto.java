@@ -1,6 +1,5 @@
 package com.example.userservice.dto;
 
-import com.example.userservice.vo.ResponseRegister;
 import lombok.Data;
 
 import java.util.Date;
@@ -18,7 +17,7 @@ public class UserDto {
 
     private Date creDtm;
 
-    private List<ResponseRegister> registers;
+    //private List<ResponseRegister> registers;
 
 
 }

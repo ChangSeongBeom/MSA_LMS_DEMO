@@ -3,19 +3,15 @@ package com.example.userservice.controller;
 import com.example.userservice.domain.User;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.service.UserService;
-import com.example.userservice.vo.RequestJoinUser;
-import com.example.userservice.vo.RequestLoginUser;
-import com.example.userservice.vo.ResponseLoginUser;
-import com.example.userservice.vo.ResponseUser;
+import com.example.userservice.vo.RequestJoinUserDto;
+import com.example.userservice.vo.ResponseJoinUserDto;
+import com.example.userservice.vo.ResponseUserDto;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,48 +22,43 @@ public class UserController {
 
     private UserService userService;
 
-    @GetMapping("/test")
-    private String test(){
-        return "testtes";
-    }
 
+    //회원가입
     @PostMapping("/join")
-    public ResponseEntity<ResponseLoginUser> joinUser(@RequestBody RequestJoinUser requestJoinUser){
-        System.out.println("===requestLoginUser==="+requestJoinUser);
-        ModelMapper mapper=new ModelMapper();
-        // 컨트롤러 온 요청 현 번환 VO->DTO
-        UserDto userDto= mapper.map(requestJoinUser,UserDto.class);
-        System.out.println("===userDto==="+userDto);
-        //회원 저장
-        userService.joinUser(userDto);
+    public ResponseEntity<ResponseJoinUserDto> joinUser(@RequestBody RequestJoinUserDto requestJoinUserDto){
+        //회원 추가
+        UserDto joinUserDto=userService.joinUser(requestJoinUserDto);
 
-        //요청 결과 변환 DTO->Entity
-        ResponseLoginUser responseLoginUser=mapper.map(userDto,ResponseLoginUser.class);
+        //결과 반환용 Dto
+        ResponseJoinUserDto responseLoginUser=userService.responseJoinUser(joinUserDto);
 
+        //결과 반환
         return ResponseEntity.status(HttpStatus.CREATED).body(responseLoginUser);
-
     }
 
+    //전체회원 조회
     @GetMapping("/getAllUsers")
-    public ResponseEntity<List<ResponseUser>> getAllUsers(){
+    public ResponseEntity<List<ResponseUserDto>> getAllUsers(){
         //전체 사용자 Iterable 타입으로 조회
         Iterable<User> userList=userService.getUserByAll();
 
         //List<ResponseUser>타입으로 리턴해야 하기 떄문에 여기 담아줄 거임.
-        List<ResponseUser> result=new ArrayList<>();
-
+        List<ResponseUserDto> result=new ArrayList<>();
         userList.forEach(u->{
-            result.add(new ModelMapper().map(u,ResponseUser.class));
+            result.add(new ModelMapper().map(u,ResponseUserDto.class));
         });
-
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/getUser/{userId}")
-    public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") String loginId){
+
+    //특정회원조회
+    @GetMapping("/getUser/{loginId}")
+    public ResponseEntity<ResponseUserDto> getUser(@PathVariable("loginId") String loginId){
+        //loginId를 통한 사용자 한명 조회
         UserDto userDto=userService.getUser(loginId);
-        ResponseUser findOneUser=new ModelMapper().map(userDto,ResponseUser.class);
-        return ResponseEntity.status(HttpStatus.OK).body(findOneUser);
+        //사용자를 결과물로 리턴
+        ResponseUserDto responseUser= userService.findOneUser(userDto);
+        return ResponseEntity.status(HttpStatus.OK).body(responseUser);
     }
 
 

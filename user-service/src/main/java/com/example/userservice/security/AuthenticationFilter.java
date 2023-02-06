@@ -3,7 +3,7 @@ package com.example.userservice.security;
 
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.service.UserService;
-import com.example.userservice.vo.RequestLoginUser;
+import com.example.userservice.vo.RequestLoginUserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -43,7 +43,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
         try {
-            RequestLoginUser creds = new ObjectMapper().readValue(request.getInputStream(), RequestLoginUser.class);
+            RequestLoginUserDto creds = new ObjectMapper().readValue(request.getInputStream(), RequestLoginUserDto.class);
             System.out.println("====진입==="+creds);
             return getAuthenticationManager().authenticate(
 
