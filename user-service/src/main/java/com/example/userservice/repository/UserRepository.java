@@ -1,5 +1,6 @@
 package com.example.userservice.repository;
 
+import com.example.userservice.domain.Company;
 import com.example.userservice.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -22,6 +23,7 @@ public class UserRepository {
     }
 
     public User findById(String loginId){
+        System.out.println("loginId" +loginId);
         return em.createQuery("select u from User u where u.loginId=:id",User.class)
                 .setParameter("id",loginId)
                 .getSingleResult();
@@ -33,10 +35,15 @@ public class UserRepository {
                 .getResultList();
     }
 
-    public User findByEmail(String username){
-        return em.createQuery("select u from User u where u.name=:name",User.class)
-                .setParameter("name",username)
-                .getSingleResult();
+//    public User findByEmail(String username){
+//        return em.createQuery("select u from User u where u.name=:name",User.class)
+//                .setParameter("name",username)
+//                .getSingleResult();
+//    }
+
+    public List<Company> listUser(){
+        return em.createQuery("select c from Company c join fetch c.user",Company.class)
+                .getResultList();
     }
 
 }

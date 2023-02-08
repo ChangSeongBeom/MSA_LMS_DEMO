@@ -3,9 +3,9 @@ package com.example.userservice.service;
 import com.example.userservice.domain.User;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.repository.UserRepository;
-import com.example.userservice.vo.RequestJoinUserDto;
-import com.example.userservice.vo.ResponseJoinUserDto;
-import com.example.userservice.vo.ResponseUserDto;
+import com.example.userservice.dto.RequestJoinUserDto;
+import com.example.userservice.dto.ResponseJoinUserDto;
+import com.example.userservice.dto.ResponseUserDto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -31,8 +31,10 @@ public class UserServiceImpl implements UserService{
         //Dto->Entity전환
         //아래 코드였지만 코드리팩토링을 위해 builder패턴으로 변경
         // User user=mapper.map(requestJoinUserDto,User.class);
+        String encryptPassword=bCryptPasswordEncoder.encode(requestJoinUserDto.getPassword());
+        requestJoinUserDto.setPassword(encryptPassword);
         User user=User.builder().requestJoinUserDto(requestJoinUserDto).build();
-        user.setPassword(bCryptPasswordEncoder.encode(requestJoinUserDto.getPassword()));
+
 
         //회원정보 저장
         userRepository.save(user);
@@ -45,12 +47,12 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        User user = userRepository.findById(userId);
         if( user ==null){
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException(userId);
         }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getLoginId(),user.getPassword(),
                 true,true,true,true,
                 new ArrayList<>());
     }
@@ -74,11 +76,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto getUserDetailsByEmail(String userName) {
-        User user=userRepository.findByEmail(userName);
+    public UserDto getUserDetailsById(String userId) {
+        User user=userRepository.findById(userId);
         System.out.println("진짜 로그 결과"+user);
         if( user== null){
-            throw  new UsernameNotFoundException(userName);
+            throw  new UsernameNotFoundException(userId);
         }
         UserDto userDto=new ModelMapper().map(user,UserDto.class);
 
@@ -100,6 +102,7 @@ public class UserServiceImpl implements UserService{
         ResponseUserDto responseUser = mapper.map(userDto,ResponseUserDto.class);
         return responseUser;
     }
+
 
 
 }

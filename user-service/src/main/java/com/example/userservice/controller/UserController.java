@@ -1,11 +1,13 @@
 package com.example.userservice.controller;
 
+import com.example.userservice.domain.Company;
 import com.example.userservice.domain.User;
 import com.example.userservice.dto.UserDto;
+import com.example.userservice.repository.UserRepository;
 import com.example.userservice.service.UserService;
-import com.example.userservice.vo.RequestJoinUserDto;
-import com.example.userservice.vo.ResponseJoinUserDto;
-import com.example.userservice.vo.ResponseUserDto;
+import com.example.userservice.dto.RequestJoinUserDto;
+import com.example.userservice.dto.ResponseJoinUserDto;
+import com.example.userservice.dto.ResponseUserDto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
 
+    private UserRepository userRepository;
     private UserService userService;
 
 
@@ -29,8 +32,11 @@ public class UserController {
         //회원 추가
         UserDto joinUserDto=userService.joinUser(requestJoinUserDto);
 
+        System.out.println("fsdsfsaet12");
+        System.out.println("testsetes");
         //결과 반환용 Dto
         ResponseJoinUserDto responseLoginUser=userService.responseJoinUser(joinUserDto);
+
 
         //결과 반환
         return ResponseEntity.status(HttpStatus.CREATED).body(responseLoginUser);
@@ -59,6 +65,13 @@ public class UserController {
         //사용자를 결과물로 리턴
         ResponseUserDto responseUser= userService.findOneUser(userDto);
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
+    }
+
+    @GetMapping("/test")
+    public void test(){
+        List<Company> test=userRepository.listUser();
+        System.out.println("company company"+ test);
+
     }
 
 

@@ -1,11 +1,11 @@
 package com.example.userservice.domain;
 
-import com.example.userservice.dto.UserDto;
-import com.example.userservice.vo.RequestJoinUserDto;
+import com.example.userservice.dto.RequestJoinUserDto;
 import lombok.*;
 
 import javax.persistence.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -27,10 +27,7 @@ public class User {
 
     private String email;
 
-    public User setPassword( String password){
-        this.password=password;
-        return this;
-    }
+
     @Builder
     public User(RequestJoinUserDto requestJoinUserDto){
         this.loginId=requestJoinUserDto.getLoginId();
@@ -39,9 +36,8 @@ public class User {
         this.email=requestJoinUserDto.getEmail();
 
     }
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="company_id")
-    private Company company;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Company> companies = new ArrayList<>();
 
 
 }

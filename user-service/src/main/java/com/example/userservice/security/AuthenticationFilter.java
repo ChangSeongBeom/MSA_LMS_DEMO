@@ -3,7 +3,7 @@ package com.example.userservice.security;
 
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.service.UserService;
-import com.example.userservice.vo.RequestLoginUserDto;
+import com.example.userservice.dto.RequestLoginUserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -62,9 +62,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     protected void   successfulAuthentication(HttpServletRequest request,
                                               HttpServletResponse response,
                                               FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String userName=((User)authResult.getPrincipal()).getUsername();
+        String userId=((User)authResult.getPrincipal()).getUsername();
 
-        UserDto userDetails = userService.getUserDetailsByEmail(userName);
+        UserDto userDetails = userService.getUserDetailsById(userId);
         System.out.println("======userDetails====="+userDetails);
         String token= Jwts.builder()
                 .setSubject(userDetails.getLoginId())
