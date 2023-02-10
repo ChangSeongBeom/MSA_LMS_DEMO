@@ -1,11 +1,12 @@
-package com.example.userservice.service;
+package com.example.userservice.service.impl;
 
-import com.example.userservice.domain.User;
-import com.example.userservice.dto.UserDto;
-import com.example.userservice.repository.UserRepository;
-import com.example.userservice.dto.RequestJoinUserDto;
-import com.example.userservice.dto.ResponseJoinUserDto;
-import com.example.userservice.dto.ResponseUserDto;
+import com.example.userservice.model.entity.User;
+import com.example.userservice.model.dto.UserDto;
+import com.example.userservice.model.repository.UserRepository;
+import com.example.userservice.model.dto.RequestJoinUserDto;
+import com.example.userservice.model.dto.ResponseJoinUserDto;
+import com.example.userservice.model.dto.ResponseUserDto;
+import com.example.userservice.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -18,10 +19,11 @@ import java.util.ArrayList;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Override
     public UserDto joinUser(RequestJoinUserDto requestJoinUserDto) {

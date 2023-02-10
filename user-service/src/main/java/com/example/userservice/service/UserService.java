@@ -1,10 +1,10 @@
 package com.example.userservice.service;
 
-import com.example.userservice.domain.User;
-import com.example.userservice.dto.UserDto;
-import com.example.userservice.dto.RequestJoinUserDto;
-import com.example.userservice.dto.ResponseJoinUserDto;
-import com.example.userservice.dto.ResponseUserDto;
+import com.example.userservice.model.entity.User;
+import com.example.userservice.model.dto.UserDto;
+import com.example.userservice.model.dto.RequestJoinUserDto;
+import com.example.userservice.model.dto.ResponseJoinUserDto;
+import com.example.userservice.model.dto.ResponseUserDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {

@@ -1,9 +1,9 @@
 package com.example.userservice.security;
 
 
-import com.example.userservice.dto.UserDto;
+import com.example.userservice.model.dto.UserDto;
 import com.example.userservice.service.UserService;
-import com.example.userservice.dto.RequestLoginUserDto;
+import com.example.userservice.model.dto.RequestLoginUserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

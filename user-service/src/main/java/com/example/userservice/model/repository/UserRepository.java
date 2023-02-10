@@ -1,7 +1,7 @@
-package com.example.userservice.repository;
+package com.example.userservice.model.repository;
 
-import com.example.userservice.domain.Company;
-import com.example.userservice.domain.User;
+import com.example.userservice.model.entity.Company;
+import com.example.userservice.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +16,7 @@ import java.util.List;
 public class UserRepository {
 
 
+    @PersistenceContext
     private final EntityManager em;
 
     public void save(User user){

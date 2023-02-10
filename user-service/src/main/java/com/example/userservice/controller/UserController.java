@@ -1,13 +1,13 @@
 package com.example.userservice.controller;
 
-import com.example.userservice.domain.Company;
-import com.example.userservice.domain.User;
-import com.example.userservice.dto.UserDto;
-import com.example.userservice.repository.UserRepository;
+import com.example.userservice.model.entity.Company;
+import com.example.userservice.model.entity.User;
+import com.example.userservice.model.dto.UserDto;
+import com.example.userservice.model.repository.UserRepository;
 import com.example.userservice.service.UserService;
-import com.example.userservice.dto.RequestJoinUserDto;
-import com.example.userservice.dto.ResponseJoinUserDto;
-import com.example.userservice.dto.ResponseUserDto;
+import com.example.userservice.model.dto.RequestJoinUserDto;
+import com.example.userservice.model.dto.ResponseJoinUserDto;
+import com.example.userservice.model.dto.ResponseUserDto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -32,8 +32,6 @@ public class UserController {
         //회원 추가
         UserDto joinUserDto=userService.joinUser(requestJoinUserDto);
 
-        System.out.println("fsdsfsaet12");
-        System.out.println("testsetes");
         //결과 반환용 Dto
         ResponseJoinUserDto responseLoginUser=userService.responseJoinUser(joinUserDto);
 

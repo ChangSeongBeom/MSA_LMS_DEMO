@@ -1,6 +1,6 @@
-package com.example.userservice.domain;
+package com.example.userservice.model.entity;
 
-import com.example.userservice.dto.RequestJoinUserDto;
+import com.example.userservice.model.dto.RequestJoinUserDto;
 import lombok.*;
 
 import javax.persistence.*;
