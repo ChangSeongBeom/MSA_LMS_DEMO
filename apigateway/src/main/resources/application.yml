@@ -14,11 +14,38 @@ spring:
   cloud:
     gateway:
       default-filters:
-        - name: GlobalFilter
-          args:
-            baseMesage: Spring Cloud Gateway Global Filter
-            preLogger: true
-            postLogger: true
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_UNIQUE
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: '*'
+            allowed-methods:
+              - "GET"
+              - "POST"
+              - "PUT"
+              - "DELETE"
+              - "HEAD"
+              - "OPTIONS"
+            allowed-headers:
+              - "Origin"
+              - "Content-Type"
+              - "Accept"
+              - "Authorization"
+              - "User-Key"
+              - "Request-Tracker"
+              - "Session-Tracker"
+              - "X-XSRF-TOKEN"
+              - "X-IBM-CLIENT-ID"
+              - "Message-ID"
+              - "X-IBM-CLIENT-SECRET"
+        add-to-simple-url-handler-mapping: true
+#      default-filters:
+#        - name: CorsGlobalConfiguration
+#          args:
+#            baseMesage: Spring Cloud Gateway Global Filter
+#            preLogger: true
+#            postLogger: true
       routes:
         - id: user-service
           uri: lb://USER-SERVICE
@@ -26,7 +53,6 @@ spring:
             - Path=/user-service/join
             - Method=POST
           filters:
-            - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
         - id: user-service
@@ -56,17 +82,17 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/register-service/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
+      #      - AuthorizationHeaderFilter
 
         - id: content-service
-          uri: lb://CONTENT-SERVICE
+          uri: http://localhost:52001
           predicates:
             - Path=/content-service/**
             - Method=POST,GET
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/content-service/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
+          #  - AuthorizationHeaderFilter
 
         - id: review-service
           uri: lb://REVIEW-SERVICE
@@ -76,7 +102,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/review-service/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
+         #   - AuthorizationHeaderFilter
 
 token:
   secret: user_token

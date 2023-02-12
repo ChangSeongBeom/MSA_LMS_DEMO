@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private UserRepository userRepository;

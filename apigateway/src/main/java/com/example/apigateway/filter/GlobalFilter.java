@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -25,6 +26,10 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response=exchange.getResponse();
 
+            if (request.getMethod().toString().equals("POST") || request.getMethod().toString().equals("GET")) {
+                response.setStatusCode(HttpStatus.OK);
+
+            }
             log.info("Global filter baseMessage: request id ->{}",config.getBaseMessage());
 
             if(config.isPreLogger()){
