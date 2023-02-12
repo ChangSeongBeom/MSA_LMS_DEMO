@@ -39,6 +39,10 @@ spring:
               - "X-IBM-CLIENT-ID"
               - "Message-ID"
               - "X-IBM-CLIENT-SECRET"
+              - "token"
+            exposed-headers:
+              - "token"
+              - "userId"
         add-to-simple-url-handler-mapping: true
 #      default-filters:
 #        - name: CorsGlobalConfiguration
@@ -61,7 +65,6 @@ spring:
             - Path=/user-service/login
             - Method=POST
           filters:
-            - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
         - id: user-service
@@ -70,7 +73,6 @@ spring:
             - Path=/user-service/**
             - Method=POST,GET
           filters:
-            - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
 
