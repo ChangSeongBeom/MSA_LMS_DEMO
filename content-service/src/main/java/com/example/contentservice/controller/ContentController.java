@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080" })
+@CrossOrigin(origins ="*")
 public class ContentController {
 
     private ContentRepository contentRepository;
