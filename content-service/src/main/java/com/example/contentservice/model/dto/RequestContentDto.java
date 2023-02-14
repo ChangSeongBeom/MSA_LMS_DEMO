@@ -8,6 +8,8 @@ import lombok.Data;
 public class RequestContentDto {
 
     private String loginId;
+
+    private String contentName;
     //설명
     private String description;
     //콘텐츠 길이

@@ -10,6 +10,8 @@ import java.util.Date;
 public class ResponseContent {
     private Long id;
     private String loginId;
+
+    private String contentName;
     //설명
     private String description;
     //콘텐츠 길이

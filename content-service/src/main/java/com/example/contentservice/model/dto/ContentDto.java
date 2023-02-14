@@ -11,6 +11,7 @@ import java.util.Date;
 public class ContentDto {
 
     private Long id;
+    private String contentName;
     private String loginId;
     //설명
     private String description;

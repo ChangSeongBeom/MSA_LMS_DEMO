@@ -19,6 +19,7 @@ public class Content {
     @Column(name="content_id")
     private Long id;
 
+    private String contentName;
     //사용자 로그인 아이디
     private String loginId;
 
@@ -47,9 +48,10 @@ public class Content {
     private List<Rating> ratingList=new ArrayList<>();
 
     @Builder
-    public Content(String loginId,String description,Long contentLength, Long hitNum
+    public Content(String loginId,String contentName,String description,Long contentLength, Long hitNum
     ,Long likeNum,double rating, Long ratingPerson, Long capaNum,Date creDtm){
         this.loginId=loginId;
+        this.contentName=contentName;
         this.description=description;
         this.contentLength=contentLength;
         this.capaNum=capaNum;

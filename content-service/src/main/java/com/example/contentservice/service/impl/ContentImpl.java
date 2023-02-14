@@ -35,6 +35,7 @@ public class ContentImpl implements ContentService {
         Long ratingPerson=0L;
         Content content=Content.builder()
                 .loginId(requestContentDto.getLoginId())
+                .contentName(requestContentDto.getContentName())
                 .description(requestContentDto.getDescription())
                 .contentLength(requestContentDto.getContentLength())
                 .capaNum(requestContentDto.getCapaNum())
