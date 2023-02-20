@@ -13,9 +13,13 @@ import org.springframework.stereotype.Service;
 public interface ContentService   {
     ContentDto joinContent(RequestContentDto requestContentDto);
 
+    ContentDto getContent(Long id);
+
     ResponseContent responseJoinContent(ContentDto contentDto);
 
     Iterable<Content> getContentsByAll();
 
     ResponseRating updateRating(RequestRatingDto requestRatingDto);
+
+    ResponseContent findContent(ContentDto contentDto);
 }

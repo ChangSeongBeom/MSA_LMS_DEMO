@@ -44,6 +44,15 @@ public class ContentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseContent);
     }
 
+    @GetMapping("/getContent/{contentId}")
+    public ResponseEntity<ResponseContent> getContent(@PathVariable("contentId") Long contentId){
+        ContentDto contentDto=contentService.getContent(contentId);
+
+        ResponseContent responseContent=contentService.findContent(contentDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseContent);
+    }
+
     //모든 콘텐츠 조회
     @GetMapping("/getAllContents")
     public ResponseEntity<List<ResponseContent>> getAllContents (){

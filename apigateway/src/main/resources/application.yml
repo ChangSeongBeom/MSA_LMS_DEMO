@@ -42,7 +42,7 @@ spring:
               - "token"
             exposed-headers:
               - "token"
-              - "userId"
+              - "loginId"
         add-to-simple-url-handler-mapping: true
 #      default-filters:
 #        - name: CorsGlobalConfiguration

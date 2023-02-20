@@ -52,6 +52,15 @@ public class ContentImpl implements ContentService {
     }
 
     @Override
+    public ContentDto getContent(Long id) {
+        Content content=contentRepository.getContent(id);
+
+
+        ContentDto contentDto= mapper.strictModelMapper().map(content,ContentDto.class);
+        return contentDto;
+    }
+
+    @Override
     public ResponseContent responseJoinContent(ContentDto contentDto) {
 
         ResponseContent responseContent=mapper.strictModelMapper().map(contentDto,ResponseContent.class);
@@ -102,5 +111,11 @@ public class ContentImpl implements ContentService {
         }
 
         return null;
+    }
+
+    @Override
+    public ResponseContent findContent(ContentDto contentDto) {
+        ResponseContent responseContent=mapper.strictModelMapper().map(contentDto,ResponseContent.class);
+        return responseContent;
     }
 }

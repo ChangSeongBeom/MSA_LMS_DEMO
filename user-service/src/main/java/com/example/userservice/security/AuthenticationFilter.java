@@ -75,7 +75,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .compact();
 
         response.addHeader("token",token);
-        response.addHeader("userId",userDetails.getLoginId());
+        response.addHeader("loginId",userDetails.getLoginId());
+
+        System.out.println(response.getHeader("token"));
+        System.out.println(response.getHeader("loginId"));
 
 //        response.addHeader("Access-Control-Allow-Origin", "*");
 //        response.addHeader("Access-Control-Allow-Headers", "token, userId");
