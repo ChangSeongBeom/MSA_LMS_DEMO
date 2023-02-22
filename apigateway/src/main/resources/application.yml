@@ -94,7 +94,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/content-service/(?<segment>.*), /$\{segment}
-          #  - AuthorizationHeaderFilter
+            - AuthorizationHeaderFilter
 
         - id: review-service
           uri: lb://REVIEW-SERVICE
