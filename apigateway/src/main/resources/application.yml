@@ -87,7 +87,7 @@ spring:
       #      - AuthorizationHeaderFilter
 
         - id: content-service
-          uri: http://localhost:52001
+          uri: lb://CONTENT-SERVICE
           predicates:
             - Path=/content-service/**
             - Method=POST,GET
