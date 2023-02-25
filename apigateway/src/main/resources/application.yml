@@ -20,6 +20,7 @@ spring:
         cors-configurations:
           '[/**]':
             allowed-origins: '*'
+
             allowed-methods:
               - "GET"
               - "POST"
@@ -92,7 +93,6 @@ spring:
             - Path=/content-service/**
             - Method=POST,GET
           filters:
-            - RemoveRequestHeader=Cookie
             - RewritePath=/content-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
 
@@ -102,9 +102,8 @@ spring:
             - Path=/review-service/**
             - Method=POST,GET
           filters:
-            - RemoveRequestHeader=Cookie
             - RewritePath=/review-service/(?<segment>.*), /$\{segment}
-         #   - AuthorizationHeaderFilter
+            - AuthorizationHeaderFilter
 
 token:
   secret: user_token
