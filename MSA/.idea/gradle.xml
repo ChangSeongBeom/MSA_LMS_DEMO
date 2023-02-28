@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../apigateway" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../apigateway" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../content-service" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../content-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../eureka-service" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../eureka-service" />
+            <option value="$PROJECT_DIR$/../eureka-service/untitled" />
+            <option value="$PROJECT_DIR$/../eureka-service/untitled1" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../review-service" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../review-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../user-service" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../user-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
