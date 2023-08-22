@@ -9,6 +9,7 @@ import com.example.contentservice.model.repository.ContentRepository;
 import com.example.contentservice.response.ResponseContent;
 import com.example.contentservice.response.ResponseRating;
 import com.example.contentservice.service.ContentService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,7 @@ public class ContentController {
 
     //콘텐츠 추가
     @PostMapping("/joinContent")
+    @ApiOperation(value="콘텐츠추가", notes="콘텐츠 추가")
     public ResponseEntity<ResponseContent> joinContent (@RequestBody RequestContentDto requestContentDto){
 
         //콘텐츠 추가

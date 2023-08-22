@@ -8,6 +8,7 @@ import com.example.userservice.service.UserService;
 import com.example.userservice.model.dto.RequestJoinUserDto;
 import com.example.userservice.model.dto.ResponseJoinUserDto;
 import com.example.userservice.model.dto.ResponseUserDto;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
