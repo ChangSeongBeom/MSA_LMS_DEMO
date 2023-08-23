@@ -7,6 +7,7 @@ import com.example.reviewservice.model.repository.ReviewRepository;
 import com.example.reviewservice.request.RequestReviewDto;
 import com.example.reviewservice.response.ResponseReviewDto;
 import com.example.reviewservice.service.ReviewService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ public class ReviewController {
     }
 
     @PostMapping("/joinReview")
+    @ApiOperation(value="리뷰 등록", notes="콘텐츠에 리뷰 등록")
     public ResponseEntity<ResponseReviewDto> joinUser(@RequestBody RequestReviewDto requestReviewDto){
         ReviewDto reviewDto= reviewService.joinReview(requestReviewDto);
 
@@ -39,6 +41,7 @@ public class ReviewController {
     }
 
     @GetMapping("/getOneContentReview/{contentId}")
+    @ApiOperation(value="각 콘텐츠 당 리뷰 조회", notes="각 콘텐츠 당 리뷰 조회")
     public ResponseEntity<List<ResponseReviewDto>> getOneContentReview(@PathVariable("contentId") Long contentId){
        Iterable<Review> reviewList =  reviewService.getReviewById(contentId);
        List<ResponseReviewDto> result=new ArrayList<>();

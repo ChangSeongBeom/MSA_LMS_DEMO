@@ -30,6 +30,7 @@ public class UserController {
 
     //회원가입
     @PostMapping("/join")
+    @ApiOperation(value="회원가입", notes="회원가입")
     public ResponseEntity<ResponseJoinUserDto> joinUser(@RequestBody RequestJoinUserDto requestJoinUserDto){
         //회원 추가
         UserDto joinUserDto=userService.joinUser(requestJoinUserDto);
@@ -44,6 +45,8 @@ public class UserController {
 
     //전체회원 조회
     @GetMapping("/getAllUsers")
+    @ApiOperation(value="유저 전체 조회", notes="전체 유저 조회")
+
     public ResponseEntity<List<ResponseUserDto>> getAllUsers(){
         //전체 사용자 Iterable 타입으로 조회
         Iterable<User> userList=userService.getUserByAll();
@@ -59,6 +62,7 @@ public class UserController {
 
     //특정회원조회
     @GetMapping("/getUser/{loginId}")
+    @ApiOperation(value="유저 단건 조회", notes="유저 하나하나 조회")
     public ResponseEntity<ResponseUserDto> getUser(@PathVariable("loginId") String loginId){
         //loginId를 통한 사용자 한명 조회
         UserDto userDto=userService.getUser(loginId);

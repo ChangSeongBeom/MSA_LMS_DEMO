@@ -47,6 +47,7 @@ public class ContentController {
     }
 
     @GetMapping("/getContent/{contentId}")
+    @ApiOperation(value="콘텐츠 단건 조회", notes="콘탠츠 하나하나 조회")
     public ResponseEntity<ResponseContent> getContent(@PathVariable("contentId") Long contentId){
         ContentDto contentDto=contentService.getContent(contentId);
 
@@ -57,6 +58,7 @@ public class ContentController {
 
     //모든 콘텐츠 조회
     @GetMapping("/getAllContents")
+    @ApiOperation(value="모든 콘텐츠 조회", notes="모든 콘텐츠 조회")
     public ResponseEntity<List<ResponseContent>> getAllContents (){
         //전체 리스트
         Iterable<Content> contentsList = contentService.getContentsByAll();
@@ -71,6 +73,7 @@ public class ContentController {
 
     //평가 점수 업데이트
     @PostMapping("/updateRating")
+    @ApiOperation(value="평가점수 수정", notes="평가점수 수정 사항")
     public ResponseEntity<ResponseRating> updateRating(@RequestBody RequestRatingDto requestRatingDto){
         ResponseRating resonseRating = contentService.updateRating(requestRatingDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(resonseRating);

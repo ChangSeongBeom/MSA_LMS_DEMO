@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .groupName(API_VERSION)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.userservice"))
+                .apis(RequestHandlerSelectors.basePackage("com.example.contentservice"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
